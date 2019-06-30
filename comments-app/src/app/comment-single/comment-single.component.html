@@ -1,0 +1,26 @@
+<form>
+    <label >
+        ID: 
+        <input type="text" placeholder={{comment.id}} disabled>
+    </label>
+    <label>
+        Date: 
+        <input type="text" placeholder={{comment.date}} disabled>
+    </label>
+    <label>
+        Type: 
+        <input type="text" placeholder={{comment.type}} disabled>
+    </label>
+    <label>
+        Description: 
+        <input type="text" class="form-control" name="description" placeholder={{comment.description}} [(ngModel)]="comment.description" #description="ngModel" required>
+    </label>
+    <div class="error-message" *ngIf="description.invalid">Description is required</div>
+    <button class="delete" (click)="showDeleteDialog();">Delete comment</button>
+    <button class="edit" (click)="editComment();" [disabled]="description.invalid">Edit comment</button>
+</form>
+<div class="delete-dialog" *ngIf=displayDelDialog>
+    <h3>Are you sere you want yo delete this comment?</h3>
+    <button class="delete" (click)="hideDeleteDialog();">Cnacel</button>
+    <button class="delete" (click)="deleteComment();">Confirm</button>
+</div>
