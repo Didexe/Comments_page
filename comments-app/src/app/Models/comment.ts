@@ -2,16 +2,16 @@ export class Comment {
     id: number;
     description: string;
     type: string;
-    date: string;
+    date: number;
 
     constructor(id, description, type) {
         this.id = id;
         this.description = description;
         this.type = type;
-        this.date = this.genDate();
+        this.date = Comment.genDate();
     }
 
-    genDate() {
-        return new Date().toISOString()
+    static genDate() {
+        return new Date().getTime()
     }
 }

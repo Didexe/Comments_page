@@ -1,4 +1,4 @@
-import { Comment } from "./comment"
+import { Comment } from "./Models/comment"
 
 export const Db:Comment[] = []
 

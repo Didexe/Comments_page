@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
-import { Db, genId } from './db'
-import { Comment } from './comment'
+import { Db, genId } from '../db'
+import { Comment } from '../Models/comment'
 
 @Injectable({
   providedIn: 'root'
 })
 export class CommentsService {
 
-  constructor() { }
-
   getComments(): Comment[] {
-    return Db;
+    return Db.sort((a: Comment, b: Comment) => {
+      return b.date - a.date;
+      });
   }
 
   getComment(id): Comment {
@@ -19,15 +19,18 @@ export class CommentsService {
     })
   }
 
-  addComment(description, type): void {
-    let id = genId()
+  addComment(description, type): Comment[] {
+    let id = genId();
     Db.push(new Comment(id, description, type))
+    return this.getComments();
   }
 
   editComment(comment): void {
     Db.forEach(comm => {
       if(comm.id == comment.id) {
-        comm.description = comment.description
+        comm.description = comment.description;
+        comm.type = comment.type;
+        comm.date = Comment.genDate();
       }
     })
   }

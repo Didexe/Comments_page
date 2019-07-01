@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { CommentsService } from '../comments.service'
-import { Comment } from '../comment'
+import { CommentsService } from '../Services/comments.service'
+import { Comment } from '../Models/comment'
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-comments',
@@ -9,19 +10,25 @@ import { Comment } from '../comment'
 })
 export class CommentsComponent implements OnInit {
   comments: Comment[];
-  // description: string;
-  // type: string;
-  constructor(private CommentsService: CommentsService) { }
+  constructor(
+    private CommentsService: CommentsService,
+    private route: ActivatedRoute
+    ) { }
 
   ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      console.log(params)
+    })
     this.getComments()
   }
 
   getComments() {
-    this.comments = this.CommentsService.getComments()
+    this.comments = this.CommentsService.getComments().sort((a: any, b: any) => {
+      return b.date - a.date
+    });
   }
 
   addComment(description, type) {
-    this.CommentsService.addComment(description, type)
+    this.comments = this.CommentsService.addComment(description, type)
   }
 }

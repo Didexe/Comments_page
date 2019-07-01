@@ -1,27 +1,27 @@
 
-<form #commentsForm="ngForm">
+<form id="comments-form" #commentsForm="ngForm">
     <label>
-        Comment description:
+        <p>Comment description: </p>
         <input class="form-control" name="description" [(ngModel)]="descriptionText" #description="ngModel" required />
+        <div class="error-message"><span *ngIf="description.invalid" >Description is required</span></div>
     </label>
-    <div class="error-message" *ngIf="description.invalid">Description is required</div>
     <label>
-        Comment type:
+        <p>Comment type: </p>
         <select class="form-control" name="type" [(ngModel)]="typeText" #type="ngModel" required>
             <option disabled selected value></option>
             <option value="info">info</option>
             <option value="warning">warning</option>
             <option value="error">error</option>
         </select>
+        <div class="error-message"><span *ngIf="type.invalid">Type is required</span></div>
     </label>
-    <div class="error-message" *ngIf="type.invalid">Type is required</div>
 <button type="submit" class="btn-add" [disabled]="!commentsForm.valid" (click)="addComment(descriptionText, typeText); descriptionText=''; typeText=''">Add comment</button>
 </form>
 
-<ul class="comments">
+<ul id="comments">
     <li *ngFor="let comment of comments">
       <a routerLink="/comment/{{comment.id}}" class="comment {{comment.type}}">
-        <span class="date">{{comment.date}}</span> <span class="type">{{comment.type}}</span> {{comment.description}}
+        <span class="date">{{comment.date | date:'medium' }} </span>|<span class="type">{{comment.type}}</span>|<span class="description">{{comment.description}}</span>
       </a>
     </li>
   </ul>

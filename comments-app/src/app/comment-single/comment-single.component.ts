@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CommentsService } from '../comments.service'
-import { Comment } from '../comment'
+import { CommentsService } from '../Services/comments.service'
+import { Comment } from '../Models/comment'
  
 @Component({
   selector: 'app-comment-single',
@@ -12,6 +12,7 @@ export class CommentSingleComponent implements OnInit {
   @Input() comment: Comment;
   id: number;
   displayDelDialog: boolean;
+  displayEditDialog: boolean;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -23,25 +24,41 @@ export class CommentSingleComponent implements OnInit {
     this.getComment();
   }
 
-  getComment() {
+  getComment(): void {
     this.comment = this.CommentsService.getComment(this.id);
   }
 
-  deleteComment() {
+  deleteComment(): void {
     this.CommentsService.deleteComment(this.id);
-    this.router.navigateByUrl('/comments');
+    // this.router.navigateByUrl('/comments');
+    this.router.navigate(['/comments', { queryParams: {delete: 'success'} }]);
   }
 
-  editComment() {
-    this.CommentsService.editComment(this.comment);
-    this.router.navigateByUrl('/comments');
+  editComment(type, description): void {
+    // this.CommentsService.editComment(this.comment);
+    this.CommentsService.editComment({id: this.comment.id, type, description})
+    this.router.navigate(['/comments', { queryParams: {edit: 'success'} }]);
   }
 
-  showDeleteDialog() {
-    this.displayDelDialog = true;
+  showDialog(name: string): void {
+    switch(name) {
+      case 'delete':
+        this.displayDelDialog = true;
+      break
+      
+      case 'edit':
+          this.displayEditDialog = true;
+    }
   }
 
-  hideDeleteDialog() {
-    this.displayDelDialog = false;
+  hideDialog(name: string): void {
+    switch(name) {
+      case 'delete':
+        this.displayDelDialog = false;
+      break
+      
+      case 'edit':
+          this.displayEditDialog = false;
+    }
   }
 }

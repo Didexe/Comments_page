@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,11 +12,12 @@ import { CommentSingleComponent } from './comment-single/comment-single.componen
   declarations: [
     AppComponent,
     CommentsComponent,
-    CommentSingleComponent
+    CommentSingleComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    BrowserAnimationsModule,
     AppRoutingModule
   ],
   providers: [],

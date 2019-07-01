@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { CommentsService } from './comments.service';
+import { CommentsService } from './Services/comments.service';
 
 describe('CommentsService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
