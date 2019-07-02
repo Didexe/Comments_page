@@ -10,6 +10,8 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class CommentsComponent implements OnInit {
   comments: Comment[];
+  descriptionText: string;
+  typeText: string;
   constructor(
     private CommentsService: CommentsService,
     private route: ActivatedRoute
