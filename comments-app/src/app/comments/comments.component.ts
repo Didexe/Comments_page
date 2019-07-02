@@ -25,9 +25,7 @@ export class CommentsComponent implements OnInit {
   }
 
   getComments() {
-    this.comments = this.CommentsService.getComments().sort((a: any, b: any) => {
-      return b.date - a.date
-    });
+    this.comments = this.CommentsService.getComments()
   }
 
   addComment(description, type) {

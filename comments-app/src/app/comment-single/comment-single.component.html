@@ -16,8 +16,9 @@
         <textarea type="text" class="form-control" name="description" placeholder={{comment.description}} disabled ></textarea>
     </label>
     <div class="comment-actions">
-        <button class="btn-delete" (click)="showDialog('delete');">Delete comment</button>
-        <button class="btn-edit" (click)="showDialog('edit');">Edit comment</button>
+        <button class="btn-delete" (click)="showDialog('delete')">Delete comment</button>
+        <button class="btn-edit" (click)="showDialog('edit')">Edit comment</button>
+        <button class="btn-comments" (click)="goToAllComments()">See all</button>
     </div>
 </form>
 

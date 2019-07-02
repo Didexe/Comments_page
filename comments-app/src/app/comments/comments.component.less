@@ -21,7 +21,7 @@
         .error-message {
             width: 150px;
             color: red;
-            font-size: 12px;
+            font-size: 10px;
             text-align: left;
         }
     }
@@ -40,15 +40,24 @@
         padding:5px;
         background-color: lightgrey;
         border-bottom: 1px solid white;
+        height: 20px;
+        opacity: 1;
+        transition: .5s;
+        border-top: 3px solid rgb(34, 34, 34);
+        &:hover {
+            opacity: .8;
+            height: 25px;
+        }
         a {
             display: flex;
+            font-size: 14px;
             span {
                 margin: 0 10px;
                 &.date {
-                    width: 33%;
+                    width: 30%;
                 }
                 &.type {
-                    width: 10%;
+                    width: 15%;
                 }
                 &.description {
                     width: 55%;

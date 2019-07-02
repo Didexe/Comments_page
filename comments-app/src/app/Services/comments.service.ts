@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Db, genId } from '../db'
+import { Db, genId } from '../DB/db'
 import { Comment } from '../Models/comment'
 
 @Injectable({
@@ -25,20 +25,30 @@ export class CommentsService {
     return this.getComments();
   }
 
-  editComment(comment): void {
-    Db.forEach(comm => {
-      if(comm.id == comment.id) {
-        comm.description = comment.description;
-        comm.type = comment.type;
-        comm.date = Comment.genDate();
-      }
+  editComment(comment): Promise<string> {
+    let indToEdit = Db.findIndex((comm) => {
+      return comment.id === comm.id;
     })
+
+    if(indToEdit >= 0) {
+      Db[indToEdit].description = comment.description;
+      Db[indToEdit].type = comment.type;
+      Db[indToEdit].date = Comment.genDate();
+      return Promise.resolve('Comment successfuly edited')
+    } else {
+      return Promise.reject('Comment not found')
+    }
   }
 
-  deleteComment(id): void {
+  deleteComment(id): Promise<string> {
     let indToDel = Db.findIndex(function(comment) {
       return comment.id === id;
     })
-    Db.splice(indToDel, 1)
+    if(indToDel >= 0) {
+      Db.splice(indToDel, 1)
+      return Promise.resolve('Comment successfuly deleted')
+    } else {
+      return Promise.reject('Comment not found')
+    }
   }
 }

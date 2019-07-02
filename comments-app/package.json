@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/Didexe/Comments_page#readme",
   "dependencies": {
-    "@angular/animations": "~8.0.3",
+    "@angular/animations": "^8.0.3",
     "@angular/common": "~8.0.3",
     "@angular/compiler": "~8.0.3",
     "@angular/core": "~8.0.3",
@@ -36,6 +36,7 @@
     "@angular/platform-browser": "~8.0.3",
     "@angular/platform-browser-dynamic": "~8.0.3",
     "@angular/router": "~8.0.3",
+    "ngx-toastr": "^10.0.4",
     "rxjs": "~6.4.0",
     "tslib": "^1.9.0",
     "zone.js": "~0.9.1"

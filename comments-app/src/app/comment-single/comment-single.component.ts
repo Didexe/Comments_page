@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommentsService } from '../Services/comments.service'
 import { Comment } from '../Models/comment'
+import { ToastrService } from "ngx-toastr";
  
 @Component({
   selector: 'app-comment-single',
@@ -16,7 +17,8 @@ export class CommentSingleComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private CommentsService: CommentsService
+    private CommentsService: CommentsService,
+    private toaster: ToastrService
     ) { }
 
   ngOnInit() {
@@ -29,15 +31,31 @@ export class CommentSingleComponent implements OnInit {
   }
 
   deleteComment(): void {
-    this.CommentsService.deleteComment(this.id);
-    // this.router.navigateByUrl('/comments');
-    this.router.navigate(['/comments', { queryParams: {delete: 'success'} }]);
+    this.CommentsService
+      .deleteComment(this.id)
+      .then(
+        (message) => {
+          this.toaster.success(message)
+        }
+    )
+    .catch((error) => {
+      this.toaster.error(error)
+    })
+    this.router.navigateByUrl('/comments');    
   }
 
   editComment(type, description): void {
-    // this.CommentsService.editComment(this.comment);
-    this.CommentsService.editComment({id: this.comment.id, type, description})
-    this.router.navigate(['/comments', { queryParams: {edit: 'success'} }]);
+    this.CommentsService
+      .editComment({id: this.comment.id, type, description})
+      .then(
+        (message) => {
+          this.toaster.success(message)
+        }
+      )
+      .catch((error) => {
+      this.toaster.error(error)
+    })
+    this.router.navigateByUrl('/comments');
   }
 
   showDialog(name: string): void {
@@ -47,7 +65,8 @@ export class CommentSingleComponent implements OnInit {
       break
       
       case 'edit':
-          this.displayEditDialog = true;
+        this.displayEditDialog = true;
+        break
     }
   }
 
@@ -55,10 +74,15 @@ export class CommentSingleComponent implements OnInit {
     switch(name) {
       case 'delete':
         this.displayDelDialog = false;
-      break
+        break
       
       case 'edit':
-          this.displayEditDialog = false;
+        this.displayEditDialog = false;
+        break
     }
+  }
+
+  goToAllComments() {
+    this.router.navigateByUrl('/comments');
   }
 }
